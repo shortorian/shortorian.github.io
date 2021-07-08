@@ -81,7 +81,7 @@ analytics:
 # Site Author
 author:
   name             : "Devin Short"
-  avatar           : "profile.png"
+  avatar           : # "profile.png"
   bio              : "PhD candidate, history"
   location         : "Seattle"
   employer         :
