@@ -1,13 +1,11 @@
 {% include base_path %}
 
-<div class="{{ include.type | default: "list" }}__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
+<div class="blog_feed">
+
     <h2>
       <a href="{{ base_path }}{{ post.permalink }}">{{ title }}</a>
     </h2>
 
     {{ post.content }}
 
-  </article>
 </div>
