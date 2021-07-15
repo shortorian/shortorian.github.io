@@ -9,5 +9,3 @@ paperurl: 'https://doi.org/10.1016/j.nimb.2010.09.009f'
 citation: 'C. Wrede et al., “Preparation of ²⁰Ne, ²⁴Mg, ²⁸Si, ³²S, and ³⁶Ar Targets by Ion Implantation into Thin Carbon Foils,” <i>Nuclear Instruments and Methods in Physics Research Section B: Beam Interactions with Materials and Atoms</i> 268, no. 23 (December 1, 2010): 3482–84.'
 ---
 I participated in this work as an undergrad at the Center for Nuclear Physics and Astrophysics at the University of Washington in Seattle. We prepared isotopically pure samples of atoms that could then be used in accelerator experiments to study nuclear astrophysics and fundamental interactions.
-
-[Paper available here](https://doi.org/10.1016/j.nimb.2010.09.009f)
