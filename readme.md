@@ -1,0 +1,1 @@
+This is the repository for Devin Short's personal website.
