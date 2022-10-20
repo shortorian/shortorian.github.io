@@ -12,7 +12,7 @@
 	<atom:link href="/feed/" rel="self" type="application/rss+xml" />
 	<link>http://localhost/wordpress</link>
 	<description>just another personal site</description>
-	<lastBuildDate>Tue, 18 Oct 2022 20:37:17 +0000</lastBuildDate>
+	<lastBuildDate>Thu, 20 Oct 2022 18:17:02 +0000</lastBuildDate>
 	<language>en-US</language>
 	<sy:updatePeriod>
 	hourly	</sy:updatePeriod>
@@ -20,23 +20,66 @@
 	1	</sy:updateFrequency>
 	<generator>https://wordpress.org/?v=6.0.3</generator>
 	<item>
-		<title>Code display test</title>
-		<link>/2022/10/18/code-display-test/</link>
-					<comments>/2022/10/18/code-display-test/#respond</comments>
+		<title>On the quality of air quality data</title>
+		<link>/2022/10/20/on-the-quality-of-air-quality-data/</link>
+					<comments>/2022/10/20/on-the-quality-of-air-quality-data/#respond</comments>
 		
 		<dc:creator><![CDATA[shortda]]></dc:creator>
-		<pubDate>Tue, 18 Oct 2022 20:36:48 +0000</pubDate>
+		<pubDate>Thu, 20 Oct 2022 04:12:55 +0000</pubDate>
 				<category><![CDATA[Uncategorized]]></category>
-		<guid isPermaLink="false">/?p=213</guid>
+		<category><![CDATA[data]]></category>
+		<guid isPermaLink="false">/?p=262</guid>
+
+					<description><![CDATA[I live in Seattle so I&#8217;ve become increasingly familiar with the effect of wildfires in recent years. In the last few days, though, the air quality has been as bad as I&#8217;ve ever experienced. This map reflects the Air Quality Index around the Salish Sea, as reported by the Puget Sound Clean Air Agency. But [&#8230;]]]></description>
+										<content:encoded><![CDATA[
+<div class="wp-block-media-text alignwide is-stacked-on-mobile" style="grid-template-columns:39% auto"><figure class="wp-block-media-text__media"><img loading="lazy" width="1024" height="576" src="/wp-content/uploads/2022/10/pscleanairmap-1-1024x576.png" alt="" class="wp-image-359 size-full" srcset="/wp-content/uploads/2022/10/pscleanairmap-1-1024x576.png 1024w, /wp-content/uploads/2022/10/pscleanairmap-1-300x169.png 300w, /wp-content/uploads/2022/10/pscleanairmap-1-768x432.png 768w, /wp-content/uploads/2022/10/pscleanairmap-1.png 1260w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure><div class="wp-block-media-text__content">
+<p>I live in Seattle so I&#8217;ve become increasingly familiar with the effect of wildfires in recent years. In the last few days, though, the air quality has been as bad as I&#8217;ve ever experienced. This map reflects the Air Quality Index around the Salish Sea, as reported by the <a href="http://map.pscleanair.gov/?lat=47.70560307&amp;lon=-122.53601074&amp;z=10">Puget Sound Clean Air Agency</a>. But there are other sources for AQI data. PurpleAir manufactures consumer air quality sensors that transmit data to their global network, and they provide a <a href="https://map.purpleair.com/1/i/lb/mPM25/a30/p604800/cC4#7.59/47.733/-122.796">public map</a> of the result. There&#8217;s a problem, though: the PurpleAir numbers don&#8217;t agree with the Puget Sound Clean Air data. I&#8217;ve been uncertain about this in past years, but after a few conversations recently I decided to look into it more carefully.</p>
+</div></div>
+
+
+
+<p>The&nbsp;<a rel="noreferrer noopener" href="https://en.wikipedia.org/wiki/Air_quality_index#Computing_the_AQI" target="_blank">AQI is defined</a>&nbsp;differently for different pollutants. We&#8217;re mostly looking at PM2.5 for health effects of distant wildfires, and an Air Quality Index of 50 (the top of the &#8220;good&#8221; category) corresponds to 12 ug/m3 of PM2.5,&nbsp;which is just the mass of stuff bigger than 2.5 microns floating in a cubic meter of air. The AQI is defined by the Environmental Protection Agency. The EPA also defines what are called Federal Reference Methods to measure things like AQI as well as Federal Equivalent Methods, which name products that have been shown to work as well or better than the reference method.</p>
+
+
+
+<p>The&nbsp;<a href="https://www.ecfr.gov/current/title-40/chapter-I/subchapter-C/part-50/appendix-Appendix%20L%20to%20Part%2050" rel="noreferrer noopener" target="_blank">FRM for PM2.5 pollution</a>&nbsp;is to weigh very precisely a filter that catches nearly everything bigger than 2.5 um, run a constant controlled flow of air through it for 24 hours, then weigh the filter again. The average particle concentration for the flowing&nbsp;air in the last 24 hours is then the mass of new stuff in the filter divided by the flow rate of the air times 24 hours. That&#8217;s a simple method that&#8217;s pretty easy for anyone with a lab and money to do really precisely. The idea with an FRM is that people will use it to prove to the feds they can consistently build a device that works as well or better than the reference method, the EPA will write a rule in the Federal Register that says the new device is a Federal Equivalent Method for measuring PM2.5 pollution, and then scientists and courts and engineers can trust numbers from manufactured devices without the fed having to build a factory.</p>
+
+
+
+<p>EPA and state environmental agencies have other rules, in accordance with the Clean Air Act, that require local governments to operate air pollution monitoring stations. The 2021 revision of the Washington State quality assurance plan for their regulatory air quality monitoring network is&nbsp;<a href="https://apps.ecology.wa.gov/publications/documents/99201.pdf" rel="noreferrer noopener" target="_blank">available here</a>. Among other things, that plan documents what kinds of instruments regulatory air monitoring stations operate in Washington, and there are a lot of them. Page 53 says each station operates at least two kinds of PM2.5 monitors that are both approved as Federal Equivalents: a continuous monitor, which shines a radiation source (either light or betas) on a detector and estimates very quickly how much stuff gets in the way, and a filter-based monitor that works more like the reference method with a longer sampling period. It&#8217;s reasonable to assume the regulatory stations have a good estimate of actual particulate concentrations because every regulatory&nbsp;monitoring station in Washington has an FEM continuous monitor sitting next to a much simpler FEM filter-based monitor and they&#8217;re both run by the same trained operator. There&#8217;s also one station in the state that operates the state monitors alongside a monitor that works on the same method as the &#8220;FEM primary monitor,&#8221; which I assume is a federally operated monitor that provides a comparison between the federal and state reports.&nbsp;</p>
+
+
+
+<p>The Puget Sound Clean Air Agency implements the state monitoring policy in this region, so when they say the PurpleAir network data is &#8220;uncalibrated&#8221; they mean the PA sensors aren&#8217;t Federal Equivalents. You could calibrate one by taking it to a regulatory monitoring station and letting it run long enough to figure out what correction is required to make that sensor read the same as a regulatory monitor, but the only agreed-upon way to have confidence in all of them is for PA to go to EPA and get a product approved as an FEM. But the PA monitors are so reliable that PSCAA can apply an automatic correction and report the PA network data alongside the regulatory monitors on its&nbsp;<a rel="noreferrer noopener" href="http://map.pscleanair.gov/?lat=47.86845909&amp;lon=-122.52612311&amp;z=9" target="_blank">public map</a>&nbsp;(regulatory stations are stars, PA sensors are circles). PSCAA is confident in the PA sensors because people operating precision monitors have been reporting on consumer sensors for a while.&nbsp;<a rel="noreferrer noopener" href="https://www.sciencedirect.com/science/article/abs/pii/S1352231019305850" target="_blank">This&nbsp;journal article</a>&nbsp;says a set of three PA monitors were more consistent with each other than sets of monitors from other manufacturers, but the PA devices reported values systematically higher than an FEM monitor when PM2.5 density was above 13ug/m3 (which is everything worse than the best AQI category).&nbsp;<a rel="noreferrer noopener" href="https://pubmed.ncbi.nlm.nih.gov/34504625/" target="_blank">This&nbsp;report</a>&nbsp;on a national study of PA monitors found they were reliable and that the best estimate of particulate concentration was half the PA value plus a small correction for relative humidity, and discussed a variety of other corrections regulators had considered for PA data.</p>
+
+
+
+<p>PS, for some reason I can&#8217;t resist adding that most home smoke detectors are continuous monitors that use alphas to detect particulates, so we&#8217;ve all got little bits of radioactive metal at home. Totally safe, just don&#8217;t eat a lot of them.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/2022/10/20/on-the-quality-of-air-quality-data/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Adventures in data modeling</title>
+		<link>/2022/10/19/adventures-in-data-modeling/</link>
+					<comments>/2022/10/19/adventures-in-data-modeling/#respond</comments>
+		
+		<dc:creator><![CDATA[shortda]]></dc:creator>
+		<pubDate>Wed, 19 Oct 2022 00:59:21 +0000</pubDate>
+				<category><![CDATA[Uncategorized]]></category>
+		<guid isPermaLink="false">/?p=235</guid>
 
 					<description><![CDATA[]]></description>
-										<content:encoded><![CDATA[<pre class="wp-block-code" aria-describedby="shcb-language-1" data-shcb-language-name="Python" data-shcb-language-slug="python"><div><code class="hljs language-python"><span class="hljs-comment"># Here's some python code</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">foo</span><span class="hljs-params">(bar)</span>:</span>
-  <span class="hljs-string">'''doc string'''</span>
-  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, data)</span>:</span>
-    self.data = data</code></div><small class="shcb-language" id="shcb-language-1"><span class="shcb-language__label">Code language:</span> <span class="shcb-language__name">Python</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">python</span><span class="shcb-language__paren">)</span></small></pre>]]></content:encoded>
+										<content:encoded><![CDATA[
+<div class="wp-block-media-text alignwide is-stacked-on-mobile"><figure class="wp-block-media-text__media"><img loading="lazy" width="924" height="414" src="/wp-content/uploads/2022/10/bibliograph_erd_small_display.svg" alt="" class="wp-image-230 size-full"/></figure><div class="wp-block-media-text__content">
+<p></p>
+</div></div>
+]]></content:encoded>
 					
-					<wfw:commentRss>/2022/10/18/code-display-test/feed/</wfw:commentRss>
+					<wfw:commentRss>/2022/10/19/adventures-in-data-modeling/feed/</wfw:commentRss>
 			<slash:comments>0</slash:comments>
 		
 		
@@ -48,15 +91,17 @@
 		
 		<dc:creator><![CDATA[shortda]]></dc:creator>
 		<pubDate>Mon, 17 Oct 2022 19:15:44 +0000</pubDate>
-				<category><![CDATA[projects]]></category>
+				<category><![CDATA[Uncategorized]]></category>
+		<category><![CDATA[process]]></category>
+		<category><![CDATA[software]]></category>
 		<guid isPermaLink="false">/?p=74</guid>
 
 					<description><![CDATA[If you&#8217;re using this as a tutorial, skip to the end and read the notes first! Simply Static is the plugin everyone recommends but I couldn&#8217;t get it to work. I ran into errors I couldn&#8217;t resolve, including a cryptic message that it couldn&#8217;t copy some local files when generating the site and a 301 [&#8230;]]]></description>
 										<content:encoded><![CDATA[
-<div class="wp-block-media-text alignwide is-stacked-on-mobile is-image-fill" style="grid-template-columns:35% auto"><figure class="wp-block-media-text__media" style="background-image:url(/wp-content/uploads/2022/10/curta-zoom-1.jpg);background-position:50% 50%"><img width="1088" height="935" src="/wp-content/uploads/2022/10/curta-zoom-1.jpg" alt="A Curta Type II mechanical calculator displayed at the Oxford History of Science Museum. The calculator looks a bit like a matte black hand grenade with a dial on top and a dense series of toggle switches around the outside." class="wp-image-77 size-full" srcset="/wp-content/uploads/2022/10/curta-zoom-1.jpg 1088w, /wp-content/uploads/2022/10/curta-zoom-1-300x258.jpg 300w, /wp-content/uploads/2022/10/curta-zoom-1-1024x880.jpg 1024w, /wp-content/uploads/2022/10/curta-zoom-1-768x660.jpg 768w" sizes="(max-width: 1088px) 100vw, 1088px" /></figure><div class="wp-block-media-text__content">
-<div class="wp-container-5 wp-block-columns">
-<div class="wp-container-3 wp-block-column" style="flex-basis:100%">
-<div class="wp-container-2 wp-block-group">
+<div class="wp-block-media-text alignwide is-image-fill"><figure class="wp-block-media-text__media" style="background-image:url(/wp-content/uploads/2022/10/curta-16-9jpg-1-1024x576.jpg);background-position:0% 53%"><img loading="lazy" width="1024" height="576" src="/wp-content/uploads/2022/10/curta-16-9jpg-1-1024x576.jpg" alt="" class="wp-image-353 size-full" srcset="/wp-content/uploads/2022/10/curta-16-9jpg-1-1024x576.jpg 1024w, /wp-content/uploads/2022/10/curta-16-9jpg-1-300x169.jpg 300w, /wp-content/uploads/2022/10/curta-16-9jpg-1-768x432.jpg 768w, /wp-content/uploads/2022/10/curta-16-9jpg-1-1536x864.jpg 1536w, /wp-content/uploads/2022/10/curta-16-9jpg-1-2048x1152.jpg 2048w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure><div class="wp-block-media-text__content">
+<div class="wp-container-4 wp-block-columns">
+<div class="wp-container-2 wp-block-column" style="flex-basis:100%">
+<div class="wp-container-1 wp-block-group">
 <p>I&#8217;m interested in getting some experience with WordPress, so I&#8217;m building this site using the WordPress Gutenberg editor and then exporting a static site to a GitHub repository. This is the first website I&#8217;ve ever made, so it&#8217;s been a bit of a learning process.</p>
 
 
@@ -67,7 +112,7 @@
 
 
 
-<div class="wp-container-4 wp-block-column" style="flex-basis:10%"></div>
+<div class="wp-container-3 wp-block-column" style="flex-basis:10%"></div>
 </div>
 </div></div>
 
