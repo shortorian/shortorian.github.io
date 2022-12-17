@@ -12,7 +12,7 @@
 	<atom:link href="/feed/" rel="self" type="application/rss+xml" />
 	<link>http://localhost/wordpress</link>
 	<description>just another personal site</description>
-	<lastBuildDate>Sat, 10 Dec 2022 05:08:44 +0000</lastBuildDate>
+	<lastBuildDate>Sat, 17 Dec 2022 00:57:31 +0000</lastBuildDate>
 	<language>en-US</language>
 	<sy:updatePeriod>
 	hourly	</sy:updatePeriod>
@@ -29,9 +29,9 @@
 				<category><![CDATA[Uncategorized]]></category>
 		<guid isPermaLink="false">/?p=441</guid>
 
-					<description><![CDATA[I&#8217;m writing a dissertation on the history of climate science, but I&#8217;ve wound up spending a lot of my time developing a database system that can support the kind of work I need to do for my the project. I&#8217;ve designed a data model that solves a number of problems databases usually pose for people [&#8230;]]]></description>
+					<description><![CDATA[I&#8217;m writing a dissertation on the history of climate science, but I&#8217;ve wound up spending a lot of my time developing a database system that can support the kind of work I need to do for the project. I&#8217;ve designed a data model that solves a number of problems databases usually pose for people interested [&#8230;]]]></description>
 										<content:encoded><![CDATA[
-<p>I&#8217;m writing a dissertation on the history of climate science, but I&#8217;ve wound up spending a lot of my time developing a database system that can support the kind of work I need to do for my the project. I&#8217;ve designed a data model that solves a number of problems databases usually pose for people interested in working with complex and ambiguous data sets. After looking around for similar systems for a while, and conferring with some people around the University of Washington, I think the data model is probably unique and provides some features that aren&#8217;t available in any other database. I&#8217;m implementing the database with a python package called <a href="https://github.com/shortorian/bibliograph">bibliograph</a>, and I explain the data model in some detail below. The first talk I gave on the database is available <a href="https://youtu.be/jkQqDcneiuw?t=1233">here</a> (my talk starts around minute 21).</p>
+<p>I&#8217;m writing a dissertation on the history of climate science, but I&#8217;ve wound up spending a lot of my time developing a database system that can support the kind of work I need to do for the project. I&#8217;ve designed a data model that solves a number of problems databases usually pose for people interested in working with complex and ambiguous data sets. After looking around for similar systems for a while, and conferring with some people around the University of Washington, I think the data model is probably unique and provides some features that aren&#8217;t available in any other database. I&#8217;m implementing the database with a python package called <a href="https://github.com/shortorian/bibliograph">bibliograph</a>, and I explain the data model in some detail below. The first talk I gave on the database is available <a href="https://youtu.be/jkQqDcneiuw?t=1233">here</a> (my talk starts around minute 21).</p>
 
 
 
@@ -48,11 +48,19 @@
 
 
 
-<li><a href="#links-and-endpoints">Links and endpoints</a></li>
+<li><a href="#links-strings-nodes">Links, strings and nodes</a></li>
 
 
 
 <li><a href="#ues-case">An example use case</a></li>
+
+
+
+<li><a href="#types">Types</a></li>
+
+
+
+<li><a href="#tags">Tags</a></li>
 </ol>
 
 
@@ -69,19 +77,19 @@
 
 
 
-<h2 class="has-x-large-font-size" id="the-model">The model</h2>
+<h2 class="has-x-large-font-size" id="the-model">The solution</h2>
 
 
 
-<figure class="wp-block-image size-large"><img decoding="async" width="1024" height="462" src="/wp-content/uploads/2022/12/bibliograph_erd-1024x462.png" alt="" class="wp-image-469" srcset="/wp-content/uploads/2022/12/bibliograph_erd-1024x462.png 1024w, /wp-content/uploads/2022/12/bibliograph_erd-300x135.png 300w, /wp-content/uploads/2022/12/bibliograph_erd-768x347.png 768w, /wp-content/uploads/2022/12/bibliograph_erd-1536x694.png 1536w, /wp-content/uploads/2022/12/bibliograph_erd.png 1900w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption class="wp-element-caption">The bibliograph entity relation diagram</figcaption></figure>
+<figure class="wp-block-image size-full"><img decoding="async" width="1024" height="462" src="/wp-content/uploads/2022/12/bibliograph_erd_1024.png" alt="" class="wp-image-487" srcset="/wp-content/uploads/2022/12/bibliograph_erd_1024.png 1024w, /wp-content/uploads/2022/12/bibliograph_erd_1024-300x135.png 300w, /wp-content/uploads/2022/12/bibliograph_erd_1024-768x347.png 768w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption class="wp-element-caption">The bibliograph entity relation diagram</figcaption></figure>
 
 
 
-<p>In bibliograph, input statements are interpreted as assertions about string data, and the assertions and strings are abstracted into edges between nodes. An implementation of the model should provide methods to parse input into assertions and strings and then map each string to a single node, many-to-one (so &#8220;Alice Smith&#8221; and &#8220;A. Smith&#8221; could get mapped to the same node). Once unique nodes are identified, assertions between strings can be resolved into edges between nodes. Assertions include an additional relation that allows an implementation to keep complete information about the input method, so one can track not only what relationships exist in the input but how the information arrived in the database. The entity relation diagram, above, consists of two basically symmetric parts, a &#8220;string&#8221; or &#8220;input&#8221; side and a &#8220;node&#8221; side. For those familiar with the concept, this can be considered a pair of <a href="https://en.wikipedia.org/wiki/Graph_database">graph databases</a>, with the string graph consisting of different representations of the node graph. </p>
+<p>In the bibliograph data model, input statements are interpreted as assertions about string data, and the assertions and strings are abstracted into edges between nodes. An implementation of the model should provide methods to parse input into assertions and strings and then map each string to a single node, many-to-one (so &#8220;Alice Smith&#8221; and &#8220;A. Smith&#8221; could get mapped to the same node). Once unique nodes are identified, assertions between strings can be resolved into edges between nodes. Assertions include an additional relation that allows an implementation to keep complete information about the input method, so one can track not only what relationships exist in the input but how the information arrived in the database. The entity relation diagram, above, consists of two basically symmetric parts, a &#8220;string&#8221; or &#8220;input&#8221; side and a &#8220;node&#8221; side. For those familiar with the concept, this can be considered a pair of <a href="https://en.wikipedia.org/wiki/Graph_database">graph databases</a>, with the string graph consisting of different representations of the node graph. </p>
 
 
 
-<h2 class="has-x-large-font-size" id="links-and-endpoints">Links and endpoints</h2>
+<h2 class="has-x-large-font-size" id="links-strings-nodes">Links, strings, and nodes</h2>
 
 
 
@@ -93,7 +101,11 @@
 
 
 
-<p>The reference string is interpreted as the context for a directed link between two other strings. So in the statement &#8220;Alice said Bob married Charlie,&#8221; Alice could be the reference, Bob the source, Charlie the target, and &#8220;married&#8221; could be the link type. In my implementation, the input strings are verbatim Python function calls, but they could be anything: file names, archive box numbers, whatever. The purpose is to be able to group assertions together according to the event in which they were inserted into the database. Having each assertion connected to an input operation allows me to efficiently store input metadata. For instance, if I parse a file that has elements that should be interpreted as underbar-delimited lists, I can add an assertion between the input string and the string <code>"_"</code> with link type <code>list_delimiter</code>. All kinds of metadata can be represented this way, so the database can be highly self-descriptive.</p>
+<p>The reference string is interpreted as the context for a directed link between two other strings. So in the statement &#8220;Alice said Bob married Charlie,&#8221; Alice could be the reference, Bob the source, Charlie the target, and &#8220;married&#8221; could be the link type.</p>
+
+
+
+<p>In <a href="https://github.com/shortorian/bibliograph">my implementation</a>, the input strings are verbatim Python function calls, but they could be anything: file names, archive box numbers, whatever. The purpose is to be able to group assertions together according to the event in which they were inserted into the database. Having each assertion connected to an input operation allows me to efficiently store input metadata. For instance, if I parse a file that has elements that should be interpreted as underbar-delimited lists, I can add an assertion between the input string and the string <code><strong>"_"</strong></code> with link type <code><strong>list_delimiter</strong></code>. All kinds of metadata can be represented this way, so the database can be highly self-descriptive.</p>
 
 
 
@@ -105,7 +117,7 @@
 
 
 
-<p>I developed bibliograph for my dissertation project, which includes a graph of citations from about 10,000 scientific papers. In addition to citations, I&#8217;m interested in tracking people who were acknowledged in the papers and people and institutions who contributed to data sets authors used in their work. To visualize and interpret the graphs, I need clean, normalized relations between authors and papers. To understand how the papers fit into a story as historical sources, I need to be able to back out all the details of the context in which graph data originally appeared. The simplest example is personal names &#8211; people can have many different correct name representations. Joanne Simpson was an influential meteorologist for instance, and she published under three married names. I can handle this with the following set of assertions</p>
+<p>I developed bibliograph for my dissertation project, which includes a graph of citations from about 10,000 scientific papers. In addition to citations, I&#8217;m interested in tracking people who were acknowledged in the papers and people and institutions who contributed to data sets authors used in their work. To visualize and interpret the graphs, I need clean, normalized relations between people and papers. To understand how the papers fit into a story as historical sources, I need to be able to back out all the details of the context in which graph data originally appeared. The simplest example is personal names &#8211; people can have many different correct name representations. Joanne Simpson was an influential meteorologist for instance, and she published under three married names. I can handle this with the following set of assertions</p>
 
 
 
@@ -113,15 +125,179 @@
 
 
 
-<p>The first three rows above indicate that three published papers list Simpson as authors under three different names. The last three rows come out of a list of aliases I keep up to date as I transcribe information out of papers. When I generate nodes and edges, I have scripts that read alias assertions and map all strings in a set of aliases to the same node. The aliases are ignored when creating edges, so I would normally resolve the assertions above into three edges that could be retrieved when searching for papers written by any of the four aliases for Simpson in the table.</p>
+<p>The first three rows above indicate that three published papers list Simpson as authors under three different names. The last three rows come out of a list of aliases I keep up to date as I transcribe information out of papers. When I generate nodes and edges, I have scripts that read alias assertions and map all source and target strings in a set of aliases to the same node. The aliases are ignored when creating edges, so I would normally resolve the assertions above into three edges of link type <code>author</code>. Information about Simpson&#8217;s authorship and the papers she wrote could then be retrieved with queries using any of the names in the table above. </p>
 
 
 
-<p>This system also makes it easier to handle sources from different cultures. For instance a western source might list a Chinese person&#8217;s names in a different order than they would in their own writing, and their name could appear in multiple scripts in different sources. Each of those situations is handled with the same alias approach (assuming a reasonable text encoding), and afterwards I can always back out who used what name when. The same applies to translations that change over time or words that might be translated incorrectly in some sources.</p>
+<p>This approach means I can preserve relationships between sources outside the database and the information contained in the database. Nodes are abstract objects meant to stand for things in the world like people or places, things that can be represented in many ways. The sources I work with don&#8217;t contain people or places, they contain representations of them &#8211; the name &#8220;Joanne Simpson&#8221; is not the same thing as the person called Joanne Simpson. But if I can preserve the original representations used in my sources, I can start asking questions about the sources themselves rather than abstract objects that only live in the database. Did some sources preferentially use certain names? When did Simpson start appearing in print under different names? These are the kinds of questions investigators need to be able to ask, and the answers would be destroyed if Simpson&#8217;s name was normalized.</p>
 
 
 
-<p>Working with graphs in the data model, in which relations are stored as <code>(source, target, link type)</code> rather than keeping tables for different kinds of relations, is important because I don&#8217;t necessarily know ahead of time which relations I&#8217;m going to care about. I can pull a lot of citation data from online indexes, but there are still around 100,000 rows of manual entry I have to do (my implementation includes an input system that allows for extremely efficient manual input, but that&#8217;s a different story). I will certainly have new ideas and insights as I work through all those sources, and this approach allows me to define new relations on the fly in an input file rather than having to change the structure of the database.</p>
+<p>Bibliograph also makes it easier to handle sources from different cultures. For instance a western source might list a Chinese person&#8217;s family name in a different order than they would in their own writing, and their name could appear in multiple scripts in different sources. Those situations are all handled with alias assertions (assuming a reasonable text encoding), and afterwards I can always back out which sources used different names for the same person. This also applies to translations that change over time, words that might be translated incorrectly in some sources, or new words introduced to replace old ones. With the bibliograph schema, researchers can start asking questions about what choices people made when creating different sources rather than just identifying sources with similar content.</p>
+
+
+
+<p>Finally, working with graphs in the data model is important because I don&#8217;t necessarily know ahead of time which relations I&#8217;m going to care about. In a graph, relations are stored as <code><strong>(source, target, link type)</strong></code> tuples in a single table rather than keeping different tables for different kinds of relations, so creating a new relation is as simple as adding a new link type. I can pull a lot of citation data from online indexes, but there are still around 100,000 rows of manual entry I have to do (my implementation includes an input system that allows for extremely efficient manual input, but that&#8217;s a different story), and I will certainly have new ideas and insights as I work through all those source. This approach allows me to define new relations on the fly in an input file rather than having to change the structure of the database.</p>
+
+
+
+<h2 class="has-x-large-font-size" id="types">Types</h2>
+
+
+
+<p>An implementation of this data model, or in my implementation a user, must create what&#8217;s called a database <a href="https://en.wikipedia.org/wiki/Ontology_(information_science)">ontology</a> by defining node types and link types. The bibliograph data model places no restrictions on the ontology. This means the schema can be very precisely tailored to a given application. It can be hard to explain what ontologies are, so I&#8217;ll describe one first and then talk about them more generally</p>
+
+
+
+<p>In the database for my dissertation, I use these node types:</p>
+
+
+
+<ul>
+<li><code><strong>actor</strong></code>: a person or organization</li>
+
+
+
+<li><code><strong>work</strong></code>: something an actor made</li>
+
+
+
+<li><code><strong>date</strong></code>: a point in time</li>
+
+
+
+<li><code><strong>identifier</strong></code>: a marker that should uniquely identify something</li>
+
+
+
+<li><code><strong>agreement</strong></code>: a contract between actors</li>
+
+
+
+<li><code><strong>acknowledgement</strong></code>: a reference in a work to another actor</li>
+
+
+
+<li><code><strong>affiliation</strong></code>: a reference to an actor associated with another actor</li>
+
+
+
+<li><code><strong>quote</strong></code>: a piece of a source I transcribed</li>
+
+
+
+<li><code><strong>note</strong></code>: a piece of text I want linked to something</li>
+
+
+
+<li><strong><code>tag</code></strong>: a piece of otherwise undefined metadata</li>
+</ul>
+
+
+
+<p>This is the set of types of things I want to link together in my project. Note that some of them could be subtypes of others &#8211; arguably everything on that list except <strong><code>actor</code></strong> qualifies as a subtype of <strong><code>work</code></strong>. But these types aren&#8217;t meant to be a logically consistent representation of the world. They were created to aid my specific research project. My approach to data entry requires that I have node types for things like agreements and acknowledgements, but it dictates that other things one might consider nodes are represented by links.</p>
+
+
+
+<p>For my dissertation I created these link types:</p>
+
+
+
+<ul>
+<li><code><strong>author</strong></code></li>
+
+
+
+<li><code><strong>published</strong></code></li>
+
+
+
+<li><code><strong>volume</strong></code></li>
+
+
+
+<li><code><strong>page</strong></code></li>
+
+
+
+<li><code><strong>doi</strong></code></li>
+
+
+
+<li><code><strong>ads_bibcode</strong></code></li>
+
+
+
+<li><code><strong>title</strong></code></li>
+
+
+
+<li><code><strong>supertitle</strong></code></li>
+
+
+
+<li><code><strong>contains</strong></code></li>
+
+
+
+<li><code><strong>cited</strong></code></li>
+
+
+
+<li><code><strong>affiliated</strong></code></li>
+
+
+
+<li><code><strong>funded</strong></code></li>
+
+
+
+<li><code><strong>acknowledged</strong></code></li>
+
+
+
+<li><code><strong>annotates</strong></code></li>
+</ul>
+
+
+
+<p>Again, this has inconsistencies. Why should <strong><code>volume</code></strong>, <strong><code>page</code></strong>, or <strong><code>title</code></strong> be link types when an <strong><code>affiliation</code></strong> and <strong><code>acknowledgement</code></strong> are node types? Why do I have node types <strong><code>affiliation</code></strong> and <strong><code>acknowledgement</code></strong> and also link types <strong><code>affiliated</code></strong> and <strong><code>acknowledged</code></strong>? These things are dictated exclusively by the way I&#8217;ve decided to enter data for my project. I set up a data entry format to compress large amounts of information into single lines for manual entry, and this ontology is determined by that data entry workflow. </p>
+
+
+
+<p>So in my case the ontology is designed to efficiently enter data I care about. But there are other approaches to ontologies. <a href="https://en.wikipedia.org/wiki/Dublin_Core">The Dublin Core metadata schema</a> and the <a href="https://en.wikipedia.org/wiki/CIDOC_Conceptual_Reference_Model">CIDOC conceptual reference model</a> are gigantic standards meant to provide comprehensive sets of labels for objects and concepts that organizations like libraries and museums can use to create stable database representations of their collections. The bibliograph data model doesn&#8217;t restrict the ontology, so an implementation could use the Dublin Core or CIDOC CRM standards, but that wasn&#8217;t my concern with this design. The goal here is to connect abstract entities in a database to the data sources used to create them while making as few assumptions as possible about what kind of entities and sources people work with.</p>
+
+
+
+<h2 class="has-x-large-font-size" id="tags">Tags</h2>
+
+
+
+<p>Links sometimes require metadata. For instance, author lists are meaningful in my project and I&#8217;d like to know about first and sometimes last authors on papers. Since <strong><code>author</code></strong> is a link type in my setup, I have to attach some kind of metadata to each author link indicating that author&#8217;s position in the author list. I do that with many-to-many tables, one connecting assertions to string-valued tags and another connecting edges to nodes associated with the tags.</p>
+
+
+
+<p>Strings and nodes don&#8217;t need their own many-to-many tag tables. Instead, I define a link type <strong><code>tagged</code></strong> and a node type <strong><code>tag</code></strong>. An assertion can link an arbitrary string to a string representing the tag using the <code><strong>tagged</strong></code> link type. An edge of the same link type would connect the corresponding arbitrary node to the node of type <strong><code>tag</code></strong> corresponding to the tag string.</p>
+
+
+
+<p>This is also required for complete documentation of all information in the database. Since edges and assertions can be tagged with arbitrary metadata, they can be largely self-descriptive.</p>
+
+
+
+<h2 class="has-x-large-font-size" id="generalized-model">The generalized data model</h2>
+
+
+
+<p>Note that as I&#8217;ve set it up here, the string-side graph doesn&#8217;t include a type for the endpoints of the links &#8211; they&#8217;re all undifferentiated strings. The fully abstract, symmetrical version of this data model would replace the strings by something more general, say &#8220;representations&#8221; as in the following diagram. In that case representations and nodes would both be instances of link endpoints, called &#8220;vertexes&#8221; below.</p>
+
+
+
+<figure class="wp-block-image size-large"><img decoding="async" loading="lazy" width="1024" height="477" src="/wp-content/uploads/2022/12/bibliograph_erd_generalized_1024-1024x477.png" alt="" class="wp-image-488" srcset="/wp-content/uploads/2022/12/bibliograph_erd_generalized_1024-1024x477.png 1024w, /wp-content/uploads/2022/12/bibliograph_erd_generalized_1024-300x140.png 300w, /wp-content/uploads/2022/12/bibliograph_erd_generalized_1024-768x358.png 768w, /wp-content/uploads/2022/12/bibliograph_erd_generalized_1024-1536x716.png 1536w, /wp-content/uploads/2022/12/bibliograph_erd_generalized_1024.png 1882w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<p>This would be a convenient way to do something like represent an actor with both names and photos. In that case the string value in the representations table could be either a natural name or the name of a file containing the photo. This would allow me to capture the fact that some sources give meaningful information about a person shown in a photo without giving any other identifying information about the person. By using a typed representations table this way, I could more easily connect sources referring to a person by name with other sources that only represented that person with a picture.</p>
 ]]></content:encoded>
 					
 					<wfw:commentRss>/bibliograph-data-model/feed/</wfw:commentRss>
