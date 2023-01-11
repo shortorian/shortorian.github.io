@@ -12,7 +12,7 @@
 	<atom:link href="/author/shortda/feed/" rel="self" type="application/rss+xml" />
 	<link>http://localhost/wordpress</link>
 	<description>just another personal site</description>
-	<lastBuildDate>Wed, 11 Jan 2023 04:10:46 +0000</lastBuildDate>
+	<lastBuildDate>Wed, 11 Jan 2023 06:16:58 +0000</lastBuildDate>
 	<language>en-US</language>
 	<sy:updatePeriod>
 	hourly	</sy:updatePeriod>
@@ -291,7 +291,7 @@
 
 
 
-<p>The node graph is another three-table diagram consisting of the nodes and edges tables along with a reference to the same link_types table used for the string graph. There is a node_types table included in the schema because it makes many applications much simpler, but the data model doesn&#8217;t require that nodes have types. A row in the nodes table could have no value for the node type ID in cases where a node doesn&#8217;t fit neatly into a type system, such as when a source uses a word with a double meaning. Alternatively, one could create a node type representing different kinds of ambiguities so those situations are easy to locate in the future.</p>
+<p>The node graph is another three-table diagram consisting of the nodes and edges tables along with a reference to the same link_types table used for the string graph. There is a node_types table included in the schema because it makes many applications much simpler, but the data model doesn&#8217;t require that nodes have types. A row in the nodes table could have no value for the node type ID in cases where a node doesn&#8217;t fit neatly into a type system, such as when a source uses a word with a double meaning. Alternatively, one could create node types representing different kinds of ambiguities so those situations are easy to locate in the future.</p>
 
 
 
@@ -311,7 +311,7 @@
 
 
 
-<p>Bibliograph also makes it easier to handle sources which make different assumptions about how to represent the same thing. For instance a western source might list a Chinese person&#8217;s family name in a different order than they would in their own writing, and their name could appear in multiple scripts across different sources. Those situations can all be handled with many-to-one relationships between string representations of the sources and nodes in the database corresponding to the things the strings refer to. This also applies to translations that change over time, words that might be translated incorrectly in some sources, or new words that supplant old terms. For digital sources, one could even keep strings with different <a href="https://en.wikipedia.org/wiki/Character_encoding">character encodings</a> in separate tables to track how different sources handled text. With the bibliograph schema, researchers can start asking questions about what choices people made when creating different sources rather than just identifying sources with similar content.</p>
+<p>Bibliograph also makes it easier to handle sources which make different assumptions about how to represent the same thing. For instance a western source might list a Chinese person&#8217;s family name in a different order than they would in their own writing, and their name could appear in multiple scripts across different sources. Those situations are all handled by the many-to-one relationship between string representations of the sources and the node in the database corresponding to the person the strings refer to. This also applies to translations that change over time, words that might be translated incorrectly in some sources, or new words that supplant old terms. For digital sources, one could even keep strings with different <a href="https://en.wikipedia.org/wiki/Character_encoding">character encodings</a> in separate tables to track how different sources handled text. With the bibliograph schema, researchers can start asking questions about what choices people made when creating different sources rather than just identifying sources with similar content.</p>
 
 
 
@@ -333,7 +333,7 @@
 
 
 
-<p>The great advantage of my approach is that it allows people to tailor an implementation to their particular project. I work primarily with scientific papers, and as I began my project I quickly identified a data entry workflow that would be best for the kind of data product I wanted to make. I knew I needed a database that met the design criteria I described above but I couldn&#8217;t find one, so I decided to do it myself. Rather than make a lot of ad-hoc decisions about the structure of the database, choices that would turn into barriers to future work as I ran into unexpected situations in my archive, I designed a system that took both plain text input and a pair of syntax files indicating how the input should be parsed. This meant I could add new kinds of relations to the syntax files on the fly as I discovered unexpected connections in my sources, but it also meant the database had to accept anything I put into the syntax files. The bibliograph Python package is the result of that work. It takes a pair of syntax files and generates a database ontology from the input file format defined by the syntax, and the data model supporting it is designed around the meta-language of the syntax files rather than specific kinds of input. </p>
+<p>The great advantage of my approach is that it allows people to design an ontology for their particular project. I work primarily with scientific papers, and as I began my project I quickly identified a data entry workflow that would be best for the kind of data product I wanted to make. I knew I needed a database that met the design criteria I described above but I couldn&#8217;t find one, so I decided to do it myself. Rather than make a lot of ad-hoc decisions about the structure of the database, choices that would turn into barriers to future work as I ran into unexpected situations in my archive, I designed a system that took both plain text input and a pair of syntax files indicating how the input should be parsed. This meant I could add new kinds of relations to the syntax files on the fly as I discovered unexpected connections in my sources, but it also meant the database had to accept anything I put into the syntax files. The bibliograph Python package is the result of that work. It takes a pair of syntax files and generates a database ontology from the input file format defined by the syntax, and the data model supporting it is designed around the meta-language of the syntax files rather than specific kinds of input. </p>
 
 
 
@@ -355,7 +355,7 @@
 
 
 
-<p>The string graph in the schema above doesn&#8217;t include a vertex type like the node graph. Everything in the strings table is one kind of thing &#8211; a string. The edges table also doesn&#8217;t include a column for an input node because the bibliograph schema assumes only the string graph represents data associated directly with outside sources, while the node graph consists of abstractions the strings should refer to. The data model can be generalized by lifting the assumption that vertexes in the string graph are always strings and by providing for the possibility that nodes have their own input operations. This results in the (nearly) symmetrical diagram below.</p>
+<p>The string graph in the schema above doesn&#8217;t include a vertex type like the node graph. Everything in the strings table is one kind of thing &#8211; a string. The edges table also doesn&#8217;t include a column for an input node because the bibliograph schema assumes only the string graph represents data associated directly with outside sources, while the node graph consists of abstractions the strings should refer to. The data model can be generalized by lifting the assumption that vertexes in the string graph are always strings and by providing for the possibility that nodes have their own input operations. This results in the (almost) symmetrical diagram below.</p>
 
 
 
@@ -367,11 +367,11 @@
 
 
 
-<p>The generalization has two major consequences. The first is that it can now represent nodes with things other than strings. Previously the node types were largely a convenience because it was assumed that input data came from statements made with words, so the assertions between strings should be intelligible and node types could be inferred that way (of course that isn&#8217;t guaranteed, so I included a node type field anyway). Vertex types in the general model are essential. A particular of vertex type &#8220;drawing&#8221; could be attached to a node of vertex type &#8220;person.&#8221; Without information about vertex types it might not be possible to infer that a particular drawing represents a person. </p>
+<p>The generalization has two major consequences. The first is that it can now represent nodes with things other than strings. Previously the node types were largely a convenience because I assumed that input data came from statements made with words, so the assertions between strings should be intelligible and node types could be inferred by looking at the strings referenced in the assertions (of course that isn&#8217;t guaranteed, so I included a node_types table anyway). Vertex types are essential when strings are generalized into particulars because if there are no constraints on what kinds of things could be linked together in the particulars graph then assertions will become totally unintelligible. Consider an assertion of link type &#8220;created by&#8221; between two particulars which both have vertex type &#8220;image.&#8221; Without additional context there is no way to understand the relation between those two images. If the vertex types of the nodes on either end of the link were &#8220;person&#8221; and &#8220;book,&#8221; I might reasonably infer that one image is a photo of an author and the other image displays a book they created. If on the other hand the assertion target mapped to a node of type &#8220;photograph&#8221; then I would know the person created the image itself regardless of the content.</p>
 
 
 
-<p>Second, the generalized model doesn&#8217;t assume anything about particular workflows. In the constrained model I described above, I assume the graphs are always modified by creating new assertions. I never remove assertions even when new assertions indicate old ones are incorrect or should be removed from the node graph because I always want to be able to link the content of the database to the sources assertions came from. By contrast, the generalized bibliograph schema assumes the node graph might be manipulated directly. I could do things like populate the node graph and then build up particular representations of that graph afterwards or ingest graphs of nodes and particulars and then work out how particulars refer to nodes based on the content of each graph. </p>
+<p>Second, the generalized model doesn&#8217;t expect anything about data input workflows. In the constrained model I described above, I assume the graphs are always modified by creating new assertions. I never remove assertions even when new assertions indicate old ones are incorrect or should be removed from the node graph because I always want to be able to link the content of the database to the sources assertions came from. By contrast, in the generalized schema I expect the node graph might be manipulated directly. I could do things like populate the node graph and then build up particular representations of that graph afterwards or ingest graphs of nodes and particulars and then work out how particulars refer to nodes based on the content of each graph. </p>
 
 
 
